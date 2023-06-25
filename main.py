@@ -6,7 +6,7 @@ async def main():
     await asyncio.sleep(1)
     print('main')
 
-    asyncio.ensure_future(main())
+    loop.create_task(main())
     loop.call_soon(print, 'call_soon')
 
 

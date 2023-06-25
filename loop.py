@@ -16,17 +16,17 @@ class EventLoop(asyncio.AbstractEventLoop):
     def is_running(self):
         return True
 
-    def call_at(self, when, callback, *args):
+    def call_at(self, when, callback, *args, context=None):
         handler = asyncio.TimerHandle(when, callback, args, self)
         self._scheduled.append(handler)
         return handler
 
-    def call_soon(self, callback, *args):
+    def call_soon(self, callback, *args, context=None):
         handler = asyncio.Handle(callback, args, self)
         self._ready.append(handler)
         return handler
 
-    def call_later(self, delay, callback, *args):
+    def call_later(self, delay, callback, *args, context=None):
         return self.call_at(self.time() + delay, callback, *args)
 
     def create_future(self):
